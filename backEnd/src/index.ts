@@ -57,7 +57,7 @@ async function startServer() {
     listen: { port: Number(process.env.PORT) || 4000 }
   })
 
-  console.log(`🚀 GraphQL 서버 실행 중: ${url}`)
+  console.log(`🫠  GraphQL 서버 실행 중: ${url}`)
 }
 
 startServer().catch((err) => {

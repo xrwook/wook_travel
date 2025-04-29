@@ -1,24 +1,10 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
-// export default defineNuxtConfig({
-//   compatibilityDate: '2024-11-01',
-//   devtools: { enabled: true },
-
-//   modules: [
-//     '@nuxt/eslint',
-//     '@nuxt/fonts',
-//     '@nuxt/icon',
-//     '@nuxt/image'
-//   ]
-// })
-
-
-import { createResolver } from '@nuxt/kit';
-
-const { resolve } = createResolver(import.meta.url);
+// import { createResolver } from '@nuxt/kit';
+// const { resolve } = createResolver(import.meta.url);
 
 export default defineNuxtConfig({
   runtimeConfig: {
     public: {
+      graphqlEndpoint: process.env.NUXT_PUBLIC_GRAPHQL_ENDPOINT || 'http://localhost:4000/graphql',
     },
   },
   routeRules: {
@@ -78,5 +64,5 @@ export default defineNuxtConfig({
       inline: ['tslib'],
     },
   },
-  css: [resolve('./assets/style/style.scss')],
+  // css: [resolve('./assets/style/style.scss')],
 });

@@ -1,0 +1,41 @@
+type Place {
+  id: ID!
+  name: String!
+  address: String
+  lat: Float!
+  lng: Float!
+  memo: String
+  order: Int!
+  route_id: ID
+  created_at: String
+  route: Route
+}
+
+extend type Query {
+  getPlaces(routeId: ID!): [Place!]!
+  getPlace(id: ID!): Place
+}
+
+extend type Mutation {
+  createPlace(
+    name: String!
+    address: String
+    lat: Float!
+    lng: Float!
+    memo: String
+    order: Int!
+    route_id: ID!
+  ): Place!
+  
+  updatePlace(
+    id: ID!
+    name: String
+    address: String
+    lat: Float
+    lng: Float
+    memo: String
+    order: Int
+  ): Place!
+  
+  deletePlace(id: ID!): Boolean!
+}

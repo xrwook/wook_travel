@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRE_URL")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model places {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name       String
+  address    String?
+  lat        Float
+  lng        Float
+  memo       String?
+  order      Int
+  route_id   String?   @db.Uuid
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+  routes     routes?   @relation(fields: [route_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([route_id])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model routes {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title       String
+  description String?
+  creator_id  String?   @db.Uuid
+  created_at  DateTime? @default(now()) @db.Timestamptz(6)
+  places      places[]
+  users       users?    @relation(fields: [creator_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([creator_id])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model users {
+  id     String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email  String   @unique
+  name   String?
+  routes routes[]
+}

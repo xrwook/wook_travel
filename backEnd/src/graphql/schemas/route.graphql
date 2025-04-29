@@ -1,0 +1,22 @@
+type Route {
+  id: ID!
+  title: String!
+  description: String
+  creator_id: ID
+  created_at: String
+  creator: User
+  places: [Place!]
+}
+
+extend type Query {
+  getRoutes: [Route!]!
+  getRoute(id: ID!): Route
+  myRoutes: [Route!]!
+  getRoutesByUserId(creator_id: ID!, id: ID): [Route!]!
+}
+
+extend type Mutation {
+  createRoute(title: String!, description: String): Route!
+  updateRoute(id: ID!, title: String, description: String): Route!
+  deleteRoute(id: ID!): Boolean!
+}
